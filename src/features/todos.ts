@@ -5,11 +5,9 @@ export const todosSlice = createSlice({
   name: 'todos',
   initialState: [] as Todo[],
   reducers: {
-    addTodos(todos, { payload }: PayloadAction<Todo[]>) {
-      todos.push(...payload);
-    },
-    removeTodos(todos, { payload }: PayloadAction<Todo[]>) {
-      return todos.filter(todo => !payload.includes(todo));
+    setTodos: (_, { payload }: PayloadAction<Todo[]>) => payload,
+    removeTodosByIds(todos, { payload }: PayloadAction<number[]>) {
+      return todos.filter(t => !payload.includes(t.id));
     },
     clearTodos: () => [],
   },

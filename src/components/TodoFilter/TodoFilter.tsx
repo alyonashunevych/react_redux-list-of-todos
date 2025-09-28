@@ -22,7 +22,11 @@ export const TodoFilter: React.FC = () => {
     <form className="field has-addons">
       <p className="control">
         <span className="select">
-          <select data-cy="statusSelect" onChange={handleStatusChange}>
+          <select
+            data-cy="statusSelect"
+            value={filter.status}
+            onChange={handleStatusChange}
+          >
             <option value={Status.ALL}>All</option>
             <option value={Status.ACTIVE}>Active</option>
             <option value={Status.COMPLETED}>Completed</option>
@@ -44,7 +48,7 @@ export const TodoFilter: React.FC = () => {
         </span>
 
         {filter.query && (
-          <span className="icon is-right" style={{ pointerEvents: Status.ALL }}>
+          <span className="icon is-right" style={{ pointerEvents: 'all' }}>
             {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
             <button
               data-cy="clearSearchButton"

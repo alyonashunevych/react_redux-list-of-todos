@@ -14,10 +14,8 @@ export const App = () => {
 
   useEffect(() => {
     getTodos()
-      .then(todos => dispatch(todosSlice.actions.addTodos(todos)))
-      .catch(error => {
-        prompt(error);
-      })
+      .then(todos => dispatch(todosSlice.actions.setTodos(todos)))
+      .catch(() => {})
       .finally(() => setLoading(false));
   }, [dispatch]);
 

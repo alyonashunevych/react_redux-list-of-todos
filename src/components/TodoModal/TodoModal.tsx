@@ -4,25 +4,34 @@ import { getUser } from '../../api';
 import { User } from '../../types/User';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { currentTodoSlice } from '../../features/currentTodo';
-import { Todo } from '../../types/Todo';
 
 export const TodoModal: React.FC = () => {
-  const currentTodo = useAppSelector(state => state.currentTodo) as Todo;
+  const currentTodo = useAppSelector(state => state.currentTodo);
   const dispatch = useAppDispatch();
 
-  const [user, setUser] = useState<User | null>();
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleResetCurrentTodo = () => {
+    dispatch(currentTodoSlice.actions.reset());
+  };
 
   useEffect(() => {
+    if (!currentTodo) {
+      return;
+    }
+
+    setLoading(true);
+
     getUser(currentTodo.userId)
       .then(setUser)
       .catch(() => setUser(null))
       .finally(() => setLoading(false));
   }, [currentTodo]);
 
-  const handleResetCurrentTodo = () => {
-    dispatch(currentTodoSlice.actions.reset());
-  };
+  if (!currentTodo) {
+    return null;
+  }
 
   return (
     <div className="modal is-active" data-cy="modal">
@@ -63,7 +72,11 @@ export const TodoModal: React.FC = () => {
 
               {' by '}
 
-              <a href={`mailto:${user?.email}`}>{user?.name}</a>
+              {user ? (
+                <a href={`mailto:${user.email}`}>{user.name}</a>
+              ) : (
+                <span>Unknown user</span>
+              )}
             </p>
           </div>
         </div>

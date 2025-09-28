@@ -24,9 +24,9 @@ export const TodoList: React.FC = () => {
       .filter(todo =>
         filter.query
           ? todo.title.toLowerCase().includes(filter.query.toLowerCase())
-          : todo,
+          : true,
       );
-  }, [filter, todos]);
+  }, [filter.query, filter.status, todos]);
 
   const handleTodoSelect = (todo: Todo) => {
     dispatch(currentTodoSlice.actions.selectTodo(todo));
@@ -53,7 +53,7 @@ export const TodoList: React.FC = () => {
             {filteredTodos.map(todo => (
               <tr
                 data-cy="todo"
-                className={classNames('', {
+                className={classNames({
                   'has-background-info-light': todo === currentTodo,
                 })}
                 key={todo.id}
