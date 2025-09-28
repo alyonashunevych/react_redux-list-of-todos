@@ -10,7 +10,7 @@ export const TodoModal: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleResetCurrentTodo = () => {
     dispatch(currentTodoSlice.actions.reset());
@@ -22,6 +22,7 @@ export const TodoModal: React.FC = () => {
     }
 
     setLoading(true);
+    setUser(null);
 
     getUser(currentTodo.userId)
       .then(setUser)

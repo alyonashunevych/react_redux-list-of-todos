@@ -11,11 +11,17 @@ export const App = () => {
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    setError(null);
+    setLoading(true);
+
     getTodos()
       .then(todos => dispatch(todosSlice.actions.setTodos(todos)))
-      .catch(() => {})
+      .catch(() => {
+        setError('Something went wrong');
+      })
       .finally(() => setLoading(false));
   }, [dispatch]);
 
@@ -29,7 +35,7 @@ export const App = () => {
             <div className="block">{loading ? <Loader /> : <TodoFilter />}</div>
 
             <div className="block">
-              <TodoList />
+              {!error ? <TodoList /> : <p>{error}</p>}
             </div>
           </div>
         </div>

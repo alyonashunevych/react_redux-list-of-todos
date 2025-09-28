@@ -49,9 +49,9 @@ export const TodoFilter: React.FC = () => {
 
         {filter.query && (
           <span className="icon is-right" style={{ pointerEvents: 'all' }}>
-            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
             <button
               data-cy="clearSearchButton"
+              aria-label="Clear search"
               type="button"
               className="delete"
               onClick={handleQueryClear}

@@ -54,7 +54,7 @@ export const TodoList: React.FC = () => {
               <tr
                 data-cy="todo"
                 className={classNames({
-                  'has-background-info-light': todo === currentTodo,
+                  'has-background-info-light': todo.id === currentTodo?.id,
                 })}
                 key={todo.id}
               >
